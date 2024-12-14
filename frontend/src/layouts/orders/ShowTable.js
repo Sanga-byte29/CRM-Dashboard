@@ -86,7 +86,6 @@ function OrderManagement() {
                 Create Order
               </Button>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="demo-multiple-name-label"></InputLabel>
                 <Select
                   labelId="demo-multiple-name-label"
                   id="demo-multiple-name"
@@ -99,11 +98,15 @@ function OrderManagement() {
                       "& .MuiOutlinedInput-notchedOutline": {
                         borderColor: "gray",
                       },
-                      height: "40px",
+                      height: "40px !important", // Enforce height using !important
+                      display: "flex",
+                      alignItems: "center",
                     },
                     "& .MuiSelect-select": {
-                      padding: "10px",
-                      height: "40px",
+                      padding: "0 10px", // Add padding for consistency
+                      height: "40px !important", // Enforce height using !important
+                      display: "flex",
+                      alignItems: "center",
                     },
                   }}
                 >
@@ -111,6 +114,7 @@ function OrderManagement() {
                   <MenuItem value="all requests">All Requests</MenuItem>
                 </Select>
               </FormControl>
+
               <TextField
                 label="Search"
                 variant="outlined"
