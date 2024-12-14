@@ -9,7 +9,21 @@ router.post("/", async (req, res) => {
     const savedOrder = await newOrder.save();
     res.status(201).json(savedOrder);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    if (error.name === "ValidationError") {
+      const errors = Object.values(error.errors).map((err) => ({
+        message: err.message,
+        path: err.path,
+      }));
+      res.status(400).json({
+        error: "Validation failed",
+        details: errors, // Send an array of errors
+      });
+    } else {
+      res.status(500).json({
+        error: error.message,
+        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      });
+    }
   }
 });
 

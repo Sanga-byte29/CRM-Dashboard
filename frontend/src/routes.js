@@ -68,6 +68,12 @@ const routes = [
     component: <ShowTable />,
   },
   {
+    name: "Order Form",
+    key: "orders",
+    route: "/tables/order-form",
+    component: <Orders />,
+  },
+  {
     type: "collapse",
     name: "Billing",
     key: "billing",

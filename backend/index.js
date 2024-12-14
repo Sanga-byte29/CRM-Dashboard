@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // Parses URL-encoded bodies
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000" }));
 
 require("dotenv").config();
 require("./Models/db");

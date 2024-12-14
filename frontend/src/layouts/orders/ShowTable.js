@@ -3,69 +3,35 @@ import {
   Box,
   Button,
   Container,
-  Grid,
-  InputAdornment,
-  MenuItem,
   Paper,
-  TextField,
   Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faKey,
-  faCalendarAlt,
-  faUser,
-  faFileAlt,
-  faEnvelope,
-  faPhone,
-  faMapMarkerAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import axios from "axios";
-
-function ShowTable() {
-  const [showOrderManagement, setShowOrderManagement] = useState(false);
-
-  const handleToggleComponent = () => {
-    setShowOrderManagement((prev) => !prev);
-  };
-
-  return (
-    <Container style={{ padding: "2rem" }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-        <Typography variant="h4">Dashboard</Typography>
-        <Button
-          variant="contained"
-          onClick={handleToggleComponent}
-          style={{ backgroundColor: "#1976d2", color: "#fff" }}
-        >
-          {showOrderManagement ? "Back to Dashboard" : "Order Management"}
-        </Button>
-      </Box>
-      {showOrderManagement ? <OrderManagement /> : <Dashboard />}
-    </Container>
-  );
-}
-
-function Dashboard() {
-  return (
-    <Paper elevation={3} style={{ padding: "2rem" }}>
-      <Typography variant="h5">Welcome to the Dashboard</Typography>
-      <Typography variant="body1" mt={2}>
-        Use the button on the top-right to navigate to the Order Management system.
-      </Typography>
-    </Paper>
-  );
-}
+// import CreateOrder from "./CreateOrder"; // Import your CreateOrder component
 
 function OrderManagement() {
   const [orders, setOrders] = useState([]);
+  const [showCreateOrder, setShowCreateOrder] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState("my request");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Fetch orders from MongoDB using Axios
+  // Fetch orders from API
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("/api/orders"); // Replace with your API endpoint
+        const response = await axios.get("http://localhost:8080/orders"); // Replace with your API endpoint
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -74,146 +40,164 @@ function OrderManagement() {
     fetchOrders();
   }, []);
 
-  const columns = [
-    { field: "id", headerName: "Order ID", width: 150 },
-    { field: "status", headerName: "Order Status", width: 150 },
-    { field: "customerName", headerName: "Customer Name", width: 200 },
-    { field: "quotationNumber", headerName: "Quotation Number", width: 150 },
-    { field: "email", headerName: "Email", width: 200 },
-    { field: "phoneNumber", headerName: "Phone Number", width: 150 },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => (
-        <Button
-          variant="contained"
-          size="small"
-          style={{ backgroundColor: "#1976d2", color: "#fff" }}
-          onClick={() => handleAction(params.row)}
-        >
-          View
-        </Button>
-      ),
-    },
-  ];
-
-  const handleAction = (row) => {
-    console.log("Action clicked for row:", row);
+  const handleCreateOrder = () => {
+    setShowCreateOrder(true);
   };
 
-  return (
-    <Paper elevation={3} style={{ padding: "2rem" }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-        <Typography variant="h4">Order Management</Typography>
-      </Box>
-      <Box style={{ height: 500, width: "100%" }}>
-        <DataGrid
-          rows={orders}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          disableSelectionOnClick
-        />
-      </Box>
-    </Paper>
-  );
-}
-
-export default ShowTable;
-
-/**
- * import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Paper,
-  Typography,
-} from "@mui/material";
-import Tables from "./Tables"; // Ensure this is the correct path for the `Tables` component
-import { DataGrid } from "@mui/x-data-grid";
-
-// Main App Component
-function App() {
-  const [showCreateOrder, setShowCreateOrder] = useState(false);
-
-  // Toggle view between "Order Management" and "Create Order"
-  const handleToggleComponent = () => {
-    setShowCreateOrder((prev) => !prev);
+  const handleRequestChange = (event) => {
+    setSelectedRequest(event.target.value);
   };
 
-  return (
-    <Container style={{ padding: "2rem" }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-        <Typography variant="h4">{showCreateOrder ? "Create Order" : "Order Management"}</Typography>
-        <Button
-          variant="contained"
-          onClick={handleToggleComponent}
-          style={{ backgroundColor: "#1976d2", color: "#fff" }}
-        >
-          {showCreateOrder ? "Back to Order Management" : "Create Order"}
-        </Button>
-      </Box>
-      {showCreateOrder ? <Tables /> : <OrderManagement />}
-    </Container>
-  );
-}
-
-// Order Management Component
-function OrderManagement() {
-  const [orders, setOrders] = useState([
-    // Example static data; replace with actual API calls.
-    { id: 1, status: "Pending", customerName: "John Doe", quotationNumber: "Q1234", email: "john@example.com", phoneNumber: "1234567890" },
-    { id: 2, status: "Completed", customerName: "Jane Smith", quotationNumber: "Q5678", email: "jane@example.com", phoneNumber: "9876543210" },
-  ]);
-
-  const columns = [
-    { field: "id", headerName: "Order ID", width: 150 },
-    { field: "status", headerName: "Order Status", width: 150 },
-    { field: "customerName", headerName: "Customer Name", width: 200 },
-    { field: "quotationNumber", headerName: "Quotation Number", width: 150 },
-    { field: "email", headerName: "Email", width: 200 },
-    { field: "phoneNumber", headerName: "Phone Number", width: 150 },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => (
-        <Button
-          variant="contained"
-          size="small"
-          style={{ backgroundColor: "#1976d2", color: "#fff" }}
-          onClick={() => handleAction(params.row)}
-        >
-          View
-        </Button>
-      ),
-    },
-  ];
-
-  const handleAction = (row) => {
-    console.log("Action clicked for row:", row);
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
+  const filteredOrders = orders.filter((order) => {
+    if (selectedRequest === "all requests") {
+      return order.orderId.toString().includes(searchQuery);
+    } else {
+      return order.orderId.toString().includes(searchQuery) && order.userId === "your_user_id"; // Replace 'your_user_id' with the actual user ID
+    }
+  });
+
   return (
-    <Paper elevation={3} style={{ padding: "2rem" }}>
-      <Typography variant="h5" mb={2}>
-        Order List
-      </Typography>
-      <Box style={{ height: 400, width: "100%" }}>
-        <DataGrid
-          rows={orders}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          disableSelectionOnClick
-        />
-      </Box>
-    </Paper>
+    <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
+      {/* Left side content (if any) */}
+      <div style={{ width: "50px", backgroundColor: "#f0f0f0" }}>
+        {/* Your left side content here */}
+      </div>
+      <Container style={{ flex: 1, padding: "2rem" }}>
+        <Paper elevation={2} style={{ padding: "1.5rem", borderRadius: "8px" }}>
+          <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+            <Typography variant="h5" style={{ fontWeight: "bold" }}>
+              Order Management
+            </Typography>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Button
+                component={Link}
+                to="/tables/order-form"
+                variant="contained"
+                style={{
+                  background: "linear-gradient(to right, #6a11cb, #2575fc)",
+                  color: "white",
+                }}
+                onClick={handleCreateOrder}
+              >
+                Create Order
+              </Button>
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="demo-multiple-name-label"></InputLabel>
+                <Select
+                  labelId="demo-multiple-name-label"
+                  id="demo-multiple-name"
+                  displayEmpty
+                  value={selectedRequest}
+                  onChange={handleRequestChange}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "8px",
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "gray",
+                      },
+                      height: "40px",
+                    },
+                    "& .MuiSelect-select": {
+                      padding: "10px",
+                      height: "40px",
+                    },
+                  }}
+                >
+                  <MenuItem value="my request">My Request</MenuItem>
+                  <MenuItem value="all requests">All Requests</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                label="Search"
+                variant="outlined"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                sx={{ m: 1, minWidth: 120, height: "40px" }}
+              />
+            </div>
+          </Box>
+          {/* {showCreateOrder && <CreateOrder />} */}
+          <TableContainer component={Paper} style={{ borderRadius: "8px" }}>
+            <Table style={{ tableLayout: "fixed", width: "100%" }}>
+              <TableHead>
+                <TableRow
+                  style={{
+                    backgroundColor: "#f0f0f0",
+                    color: "#333",
+                    borderRadius: "8px",
+                    display: "flex",
+                  }}
+                >
+                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                    Order ID
+                  </TableCell>
+
+                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                    Customer Name
+                  </TableCell>
+                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                    Quotation Number
+                  </TableCell>
+                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                    Email
+                  </TableCell>
+                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                    Phone Number
+                  </TableCell>
+                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                    Action
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredOrders.map((order) => (
+                  <TableRow
+                    key={order.id}
+                    style={{ borderBottom: "1px solid #e0e0e0", display: "flex" }}
+                  >
+                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                      {order.orderId}
+                    </TableCell>
+
+                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                      {order.customer}
+                    </TableCell>
+                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                      {order.quotationNumber}
+                    </TableCell>
+                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                      {order.email}
+                    </TableCell>
+                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                      {order.mobileNumber}
+                    </TableCell>
+                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        style={{ color: "#1976d2", borderColor: "#1976d2" }}
+                        onClick={() => handleAction(order)}
+                      >
+                        View
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      </Container>
+    </div>
   );
+
+  function handleAction(order) {
+    console.log("Action clicked for order:", order);
+  }
 }
 
-export default App;
-
- */
+export default OrderManagement;
