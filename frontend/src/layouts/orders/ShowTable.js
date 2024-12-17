@@ -98,13 +98,13 @@ function OrderManagement() {
                       "& .MuiOutlinedInput-notchedOutline": {
                         borderColor: "gray",
                       },
-                      height: "40px !important", // Enforce height using !important
+                      height: "40px !important",
                       display: "flex",
                       alignItems: "center",
                     },
                     "& .MuiSelect-select": {
-                      padding: "0 10px", // Add padding for consistency
-                      height: "40px !important", // Enforce height using !important
+                      padding: "0 10px",
+                      height: "40px !important",
                       display: "flex",
                       alignItems: "center",
                     },

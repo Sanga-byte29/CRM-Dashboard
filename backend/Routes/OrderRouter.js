@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
       }));
       res.status(400).json({
         error: "Validation failed",
-        details: errors, // Send an array of errors
+        details: errors,
       });
     } else {
       res.status(500).json({
@@ -27,7 +27,47 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get all orders
+// below all unique customers with their latest details
+router.get("/customers", async (req, res) => {
+  try {
+    const customers = await Order.aggregate([
+      { $sort: { _id: -1 } },
+      {
+        $group: {
+          _id: "$customer",
+          customer: { $first: "$customer" },
+          contactPerson: { $first: "$contactPerson" },
+          mobileNumber: { $first: "$mobileNumber" },
+          email: { $first: "$email" },
+          deliveryAddress: { $first: "$deliveryAddress" },
+          gstNumber: { $first: "$gstNumber" },
+          billTo: { $first: "$billTo" },
+          quotationNumber: { $first: "$quotationNumber" },
+          poPiNumber: { $first: "$poPiNumber" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          customer: 1,
+          contactPerson: 1,
+          mobileNumber: 1,
+          email: 1,
+          deliveryAddress: 1,
+          gstNumber: 1,
+          billTo: 1,
+          quotationNumber: 1,
+          poPiNumber: 1,
+        },
+      },
+    ]);
+    res.status(200).json(customers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// below all orders
 router.get("/", async (req, res) => {
   try {
     const orders = await Order.find();
@@ -37,7 +77,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get a single order by ID
+// bwlow a single order by id
 router.get("/:id", async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
@@ -48,7 +88,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Update an order
+// below update an order
 router.put("/:id", async (req, res) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
@@ -64,7 +104,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Delete an order
+// Delete orrder
 router.delete("/:id", async (req, res) => {
   try {
     const deletedOrder = await Order.findByIdAndDelete(req.params.id);
