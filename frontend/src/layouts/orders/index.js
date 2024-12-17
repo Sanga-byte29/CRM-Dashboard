@@ -39,11 +39,11 @@ function Tables() {
       const formattedData = {
         ...formData,
         orderDate: orderDate ? orderDate.format("YYYY-MM-DD") : null,
-        orderStartDate: orderStartDate ? orderStartDate.format("YYYY-MM-DD") : null,
-        orderCompletionDate: orderCompletionDate ? orderCompletionDate.format("YYYY-MM-DD") : null,
+        startDate: startDate ? startDate.format("YYYY-MM-DD") : null,
+        completionDate: completionDate ? completionDate.format("YYYY-MM-DD") : null,
         paymentDueDate: paymentDueDate ? paymentDueDate.format("YYYY-MM-DD") : null,
         quotationDate: quotationDate ? quotationDate.format("YYYY-MM-DD") : null,
-        poPiDate: poPiDate ? poPiDate.format("YYYY-MM-DD") : null,
+        poDate: poPiDate ? poPiDate.format("YYYY-MM-DD") : null,
       };
 
       const response = await axios.post("http://localhost:8080/orders", formattedData);
@@ -69,8 +69,8 @@ function Tables() {
           </Button>
         </Box>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Order ID"
                 name="orderId"
@@ -79,15 +79,16 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <DatePicker
                 label="Order Date"
                 value={orderDate}
                 onChange={(newValue) => setOrderDate(newValue)}
+                sx={{ width: "100%" }}
                 renderInput={(params) => <TextField {...params} fullWidth />}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Booked By"
                 name="bookedBy"
@@ -98,36 +99,59 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <DatePicker
                 label="Order Start Date"
                 value={orderStartDate}
                 onChange={(newValue) => setOrderStartDate(newValue)}
+                sx={{ width: "100%" }}
                 renderInput={(params) => <TextField {...params} fullWidth />}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <DatePicker
                 label="Order Completion Date"
                 value={orderCompletionDate}
                 onChange={(newValue) => setOrderCompletionDate(newValue)}
+                sx={{ width: "100%" }}
                 renderInput={(params) => <TextField {...params} fullWidth />}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <DatePicker
                 label="Payment Due Date"
                 value={paymentDueDate}
                 onChange={(newValue) => setPaymentDueDate(newValue)}
+                sx={{ width: "100%" }}
                 renderInput={(params) => <TextField {...params} fullWidth />}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                // displayEmpty
                 label="Project Head"
                 name="projectHead"
                 value={formData.projectHead}
                 onChange={handleInputChange}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "8px",
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "gray",
+                    },
+                    height: "40px !important",
+                    display: "flex",
+                    alignItems: "center",
+                  },
+                  "& .MuiSelect-select": {
+                    padding: "0 10px",
+                    height: "40px !important",
+                    display: "flex",
+                    alignItems: "center",
+                  },
+                }}
                 select
                 fullWidth
               >
@@ -136,7 +160,7 @@ function Tables() {
                 </MenuItem>
               </TextField>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Customer"
                 name="customer"
@@ -145,7 +169,7 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Contact Person"
                 name="contactPerson"
@@ -154,7 +178,7 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Mobile Number"
                 name="mobileNumber"
@@ -163,7 +187,7 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Email"
                 name="email"
@@ -172,7 +196,7 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Site/Delivery Address"
                 name="deliveryAddress"
@@ -183,7 +207,7 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="GST Number"
                 name="gstNumber"
@@ -192,7 +216,7 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Bill To"
                 name="billTo"
@@ -203,7 +227,7 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="Quotation Number"
                 name="quotationNumber"
@@ -212,15 +236,16 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <DatePicker
                 label="Quotation Date"
                 value={quotationDate}
                 onChange={(newValue) => setQuotationDate(newValue)}
                 renderInput={(params) => <TextField {...params} fullWidth />}
+                sx={{ width: "100%" }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="PO/PI Number"
                 name="poPiNumber"
@@ -229,11 +254,12 @@ function Tables() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <DatePicker
                 label="PO/PI Date"
                 value={poPiDate}
                 onChange={(newValue) => setPoPiDate(newValue)}
+                sx={{ width: "100%" }}
                 renderInput={(params) => <TextField {...params} fullWidth />}
               />
             </Grid>
