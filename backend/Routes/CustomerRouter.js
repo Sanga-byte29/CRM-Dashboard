@@ -3,7 +3,6 @@ const Customer = require("../Models/customers");
 
 const router = express.Router();
 
-// Create a new customer
 router.post("/", async (req, res) => {
   try {
     const newCustomer = new Customer(req.body);
@@ -13,8 +12,6 @@ router.post("/", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// Get all customers
 router.get("/", async (req, res) => {
   try {
     const customers = await Customer.find();
@@ -23,8 +20,6 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// Get a single customer by ID
 router.get("/:id", async (req, res) => {
   try {
     const customer = await Customer.findById(req.params.id);
@@ -34,8 +29,6 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// Update a customer
 router.put("/:id", async (req, res) => {
   try {
     const updatedCustomer = await Customer.findByIdAndUpdate(
@@ -50,8 +43,6 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// Delete a customer
 router.delete("/:id", async (req, res) => {
   try {
     const deletedCustomer = await Customer.findByIdAndDelete(req.params.id);

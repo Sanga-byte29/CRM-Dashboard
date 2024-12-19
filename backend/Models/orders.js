@@ -13,7 +13,7 @@ const OrderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer",
       required: true,
-    }, // Reference to Customer collection
+    },
 
     address: { type: String },
     billTo: { type: String },
@@ -27,5 +27,17 @@ const OrderSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+OrderSchema.pre("remove", async function (next) {
+  // Delete related logistics entries
+  await mongoose.model("Logistics").deleteMany({ orderId: this._id });
+
+  // Delete related payment entries
+  await mongoose.model("Payment").deleteMany({ orderId: this._id });
+
+  await mongoose.model("Invoice").deleteMany({ orderId: this._id });
+
+  next(); // Call next to continue the deletion process
+});
 
 module.exports = mongoose.model("Order", OrderSchema);
