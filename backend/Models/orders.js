@@ -9,12 +9,13 @@ const OrderSchema = new mongoose.Schema(
     completionDate: { type: Date, required: true },
     paymentDueDate: { type: Date, required: true },
     projectHead: { type: String },
-    customer: { type: String, required: true },
-    contactPerson: { type: String },
-    mobileNumber: { type: String },
-    email: { type: String, required: true },
+    customer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Customer",
+      required: true,
+    }, // Reference to Customer collection
+
     address: { type: String },
-    gstNumber: { type: String },
     billTo: { type: String },
     quotationNumber: { type: String },
     quotationDate: { type: Date, required: true },

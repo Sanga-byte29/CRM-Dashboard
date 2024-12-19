@@ -5,6 +5,7 @@ const cors = require("cors");
 const AuthRouter = require("./Routes/AuthRouter");
 const EnsureAuthentication = require("./Routes/ensureAuthentication");
 const OrderRouter = require("./Routes/OrderRouter");
+const CustomerRouter = require("./Routes/CustomerRouter");
 const UserModel = require("./Models/User");
 const bcrypt = require("bcrypt");
 
@@ -16,9 +17,6 @@ require("dotenv").config();
 require("./Models/db");
 const PORT = process.env.PORT || 8080;
 
-app.get("/ping", (req, res) => {
-  res.send("PONG");
-});
 app.get("/reset-password/:token", async (req, res) => {
   try {
     const { token } = req.params;
@@ -79,6 +77,7 @@ app.post("/reset-password/:token", async (req, res) => {
 app.use("/auth", AuthRouter);
 app.use("/checkAuth", EnsureAuthentication);
 app.use("/orders", OrderRouter); // Order management routes
+app.use("/customers", CustomerRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

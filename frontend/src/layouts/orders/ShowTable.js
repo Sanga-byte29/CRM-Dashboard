@@ -23,21 +23,62 @@ import axios from "axios";
 
 function OrderManagement() {
   const [orders, setOrders] = useState([]);
+  const [customers, setCustomers] = useState({});
   const [showCreateOrder, setShowCreateOrder] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState("my request");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Fetch orders from API
+  // Fetch orders and customers from API
+  // useEffect(() => {
+  //   const fetchOrdersAndCustomers = async () => {
+  //     try {
+  //       const ordersResponse = await axios.get("http://localhost:8080/orders");
+  //       setOrders(ordersResponse.data);
+
+  //       const customersResponse = await axios.get("http://localhost:8080/customers");
+  //       const customersMap = customersResponse.data.reduce((map, customer) => {
+  //         map[customer._id] = customer;
+  //         return map;
+  //       }, {});
+  //       setCustomers(customersMap);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  //   fetchOrdersAndCustomers();
+  // }, []);
+
+  // Fetch orders
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/orders"); // Replace with your API endpoint
+        const response = await axios.get("http://localhost:8080/orders");
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
     };
     fetchOrders();
+  }, []);
+
+  console.log(orders);
+
+  // Fetch customers (separate useEffect)
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/customers");
+        const customersMap = response.data.reduce((map, customer) => {
+          map[customer._id] = customer;
+          return map;
+        }, {});
+        setCustomers(customersMap);
+      } catch (error) {
+        console.error("Error fetching customers:", error);
+      }
+    };
+    fetchCustomers();
   }, []);
 
   const handleCreateOrder = () => {
@@ -136,61 +177,145 @@ function OrderManagement() {
                     display: "flex",
                   }}
                 >
-                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                    }}
+                  >
                     Order ID
                   </TableCell>
 
-                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                    }}
+                  >
                     Customer Name
                   </TableCell>
-                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                    }}
+                  >
                     Quotation Number
                   </TableCell>
-                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                    }}
+                  >
                     Email
                   </TableCell>
-                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                    }}
+                  >
                     Phone Number
                   </TableCell>
-                  <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                    }}
+                  >
                     Action
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredOrders.map((order) => (
-                  <TableRow
-                    key={order.id}
-                    style={{ borderBottom: "1px solid #e0e0e0", display: "flex" }}
-                  >
-                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
-                      {order.orderId}
-                    </TableCell>
-
-                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
-                      {order.customer}
-                    </TableCell>
-                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
-                      {order.quotationNumber}
-                    </TableCell>
-                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
-                      {order.email}
-                    </TableCell>
-                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
-                      {order.mobileNumber}
-                    </TableCell>
-                    <TableCell style={{ padding: "12px 16px", flexGrow: 1, textAlign: "center" }}>
-                      <Button
-                        variant="outlined"
-                        size="small"
-                        style={{ color: "#1976d2", borderColor: "#1976d2" }}
-                        onClick={() => handleAction(order)}
+                {filteredOrders.map((order) => {
+                  // const customer = customers[order.customer] || {};
+                  // console.log(customer);
+                  //below addition
+                  const customer = customers[order.customer?._id] || {};
+                  return (
+                    <TableRow
+                      key={order._id}
+                      style={{
+                        borderBottom: "1px solid #e0e0e0",
+                        display: "flex",
+                      }}
+                    >
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
                       >
-                        View
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                        {order.orderId}
+                      </TableCell>
+
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {customer.contactName || "N/A"}
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {order.quotationNumber}
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {customer.email || "N/A"}
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {customer.contactNumber || "N/A"}
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          style={{
+                            color: "#1976d2",
+                            borderColor: "#1976d2",
+                          }}
+                          onClick={() => handleAction(order)}
+                        >
+                          View
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>

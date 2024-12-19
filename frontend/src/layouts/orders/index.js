@@ -12,23 +12,21 @@ function Tables() {
   // States for all input fields
   const [orderId, setOrderId] = useState("");
   const [orderDate, setOrderDate] = useState(dayjs());
-  //focus above
-  // const [orderDate, setOrderDate] = useState(null);
   const [orderStartDate, setOrderStartDate] = useState(null);
   const [orderCompletionDate, setOrderCompletionDate] = useState(null);
   const [paymentDueDate, setPaymentDueDate] = useState(null);
   const [quotationDate, setQuotationDate] = useState(null);
   const [poPiDate, setPoPiDate] = useState(null);
-  const [selectedCustomer, setSelectedCustomer] = useState("");
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [customers, setCustomers] = useState([]); // Initialize as an empty array
 
   const [formData, setFormData] = useState({
     //newlines watchout
-
     // orderId: "",
     bookedBy: "Administrator",
     projectHead: "",
-    customer: "",
+    //below is changed
+    // customer: "",
     contactPerson: "",
     mobileNumber: "",
     email: "",
@@ -54,7 +52,7 @@ function Tables() {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/orders/customers");
+        const response = await axios.get("http://localhost:8080/customers");
         setCustomers(response.data);
       } catch (error) {
         console.error("Error fetching customers:", error);
@@ -64,15 +62,29 @@ function Tables() {
   }, []);
 
   //below is for customer selection
-  const handleCustomerChange = (e) => {
-    const customerName = e.target.value;
-    setSelectedCustomer(customerName);
-
-    const customerData = customers.find((c) => c.customer === customerName);
-    if (customerData) {
+  const handleCustomerChange = (event, newValue) => {
+    if (newValue) {
+      const selected = customers.find((customer) => customer.contactName === newValue.contactName);
+      if (selected) {
+        setSelectedCustomer(selected);
+        setFormData((prev) => ({
+          ...prev,
+          contactPerson: selected.contactName,
+          mobileNumber: selected.contactNumber,
+          email: selected.email,
+          deliveryAddress: selected.siteDeliveryAddress,
+          gstNumber: selected.gstNumber,
+        }));
+      }
+    } else {
+      setSelectedCustomer(null);
       setFormData((prev) => ({
         ...prev,
-        ...customerData,
+        contactPerson: "",
+        mobileNumber: "",
+        email: "",
+        deliveryAddress: "",
+        gstNumber: "",
       }));
     }
   };
@@ -86,9 +98,9 @@ function Tables() {
     try {
       const formattedData = {
         orderId,
+        //below new add
+        customer: selectedCustomer?._id || "", // Send customer ID
         orderDate: orderDate.toISOString().split("T")[0],
-        // ...formData,
-        // orderDate: orderDate ? orderDate.format("YYYY-MM-DD") : null,
         startDate: startDate ? startDate.format("YYYY-MM-DD") : null,
         completionDate: completionDate ? completionDate.format("YYYY-MM-DD") : null,
         paymentDueDate: paymentDueDate ? paymentDueDate.format("YYYY-MM-DD") : null,
@@ -129,8 +141,6 @@ function Tables() {
               <TextField
                 label="Order ID"
                 name="orderId"
-                // value={formData.orderId}
-                // onChange={handleInputChange}
                 disabled
                 value={orderId}
                 InputProps={{ readOnly: true }}
@@ -218,76 +228,12 @@ function Tables() {
                 </MenuItem>
               </TextField>
             </Grid>
-            {/* below previous */}
-            {/* <Grid item xs={12} md={4}>
-              <TextField
-                label="Customer"
-                name="customer"
-                value={formData.customer}
-                onChange={handleInputChange}
-                fullWidth
-              />
-            </Grid> */}
-            {/* now updated for customer selection */}
-            {/* stage 2 */}
-            {/* <Grid item xs={12} md={4}>
-              <TextField
-                label="Customer"
-                select
-                name="customer"
-                value={selectedCustomer}
-                onChange={handleCustomerChange}
-                fullWidth
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "8px",
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "gray",
-                    },
-                    height: "40px !important",
-                    display: "flex",
-                    alignItems: "center",
-                  },
-                  "& .MuiSelect-select": {
-                    padding: "0 10px",
-                    height: "40px !important",
-                    display: "flex",
-                    alignItems: "center",
-                  },
-                }}
-              >
-                <MenuItem value="">
-                  <em>Select a Customer</em>
-                </MenuItem>
-                {customers.map((customer, index) => (
-                  <MenuItem key={index} value={customer.customer}>
-                    {customer.customer}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid> */}
-            {/* stage 3 */}
             <Grid item xs={12} md={4}>
               <Autocomplete
-                freeSolo
-                options={customers.map((customer) => customer.customer)} // Existing customer list
-                value={selectedCustomer} // Selected value
-                onInputChange={(event, newValue) => {
-                  setSelectedCustomer(newValue); // Update the selected customer
-                  setFormData((prev) => ({
-                    ...prev,
-                    customer: newValue,
-                  }));
-
-                  // Find if the entered value matches any existing customer to autofill details
-                  const existingCustomer = customers.find((c) => c.customer === newValue);
-                  if (existingCustomer) {
-                    setFormData((prev) => ({
-                      ...prev,
-                      ...existingCustomer, // Autofill details
-                    }));
-                  }
-                }}
+                options={customers} // Use customer objects
+                getOptionLabel={(option) => option.contactName} // Get customer name
+                value={selectedCustomer}
+                onChange={handleCustomerChange}
                 renderInput={(params) => (
                   <TextField
                     {...params}
