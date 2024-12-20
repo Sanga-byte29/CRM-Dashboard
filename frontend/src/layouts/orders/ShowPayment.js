@@ -114,7 +114,7 @@ function ShowPayment() {
             Payments
           </Typography>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Button
+            {/* <Button
               component={Link}
               to="/tables/order-form"
               variant="contained"
@@ -125,7 +125,7 @@ function ShowPayment() {
               onClick={handleCreateOrder}
             >
               Create Order
-            </Button>
+            </Button> */}
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <Select
                 labelId="demo-multiple-name-label"
@@ -151,8 +151,8 @@ function ShowPayment() {
                   },
                 }}
               >
-                <MenuItem value="my request">My Request</MenuItem>
-                <MenuItem value="all requests">All Requests</MenuItem>
+                <MenuItem value="my request">My Payments</MenuItem>
+                <MenuItem value="all requests">All Payments</MenuItem>
               </Select>
             </FormControl>
 

@@ -116,7 +116,7 @@ function ShowInvoice() {
             Invoice
           </Typography>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Button
+            {/* <Button
               component={Link}
               to="/tables/order-form"
               variant="contained"
@@ -127,7 +127,7 @@ function ShowInvoice() {
               onClick={handleCreateOrder}
             >
               Create Order
-            </Button>
+            </Button> */}
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <Select
                 labelId="demo-multiple-name-label"
@@ -153,8 +153,8 @@ function ShowInvoice() {
                   },
                 }}
               >
-                <MenuItem value="my request">My Request</MenuItem>
-                <MenuItem value="all requests">All Requests</MenuItem>
+                <MenuItem value="my request">My Invoice</MenuItem>
+                <MenuItem value="all requests">All Invoices</MenuItem>
               </Select>
             </FormControl>
 

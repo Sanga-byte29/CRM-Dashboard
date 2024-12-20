@@ -116,7 +116,7 @@ function ShowLogistics() {
             Logistics
           </Typography>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Button
+            {/* <Button
               component={Link}
               to="/tables/order-form"
               variant="contained"
@@ -127,7 +127,7 @@ function ShowLogistics() {
               onClick={handleCreateOrder}
             >
               Create Order
-            </Button>
+            </Button> */}
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <Select
                 labelId="demo-multiple-name-label"
@@ -153,8 +153,8 @@ function ShowLogistics() {
                   },
                 }}
               >
-                <MenuItem value="my request">My Request</MenuItem>
-                <MenuItem value="all requests">All Requests</MenuItem>
+                <MenuItem value="my request">My Logistics</MenuItem>
+                <MenuItem value="all requests">All Logistics</MenuItem>
               </Select>
             </FormControl>
 
