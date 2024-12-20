@@ -22,20 +22,23 @@ function CustomerModal({ open, onClose }) {
           Add Customer
         </Typography>
         <form>
-          <TextField label="Customer Name" fullWidth margin="normal" required />
+          <TextField label="Email" fullWidth margin="normal" required />
+          <TextField label="Contact Name" fullWidth margin="normal" required />
           <TextField label="Contact Number" fullWidth margin="normal" required />
-          <TextField label="Email Address" fullWidth margin="normal" required />
-          <TextField label="Address" fullWidth multiline rows={3} margin="normal" />
+          <TextField label="Site No." fullWidth multiline rows={3} margin="normal" />
+          <TextField label="GST No." fullWidth multiline rows={3} margin="normal" />
+
           <Box display="flex" justifyContent="space-between" mt={3}>
             <Button
               variant="outlined"
               color="black"
               onClick={onClose}
               style={{
-                backgroundColor: "white",
-                color: "black",
-                border: "1px solid black",
-                marginLeft: "1rem",
+                background: "linear-gradient(to right, #6a11cb, #2575fc)",
+                color: "white",
+                height: "47px", // Match the height of the Autocomplete
+                padding: "0 15px",
+                fontSize: "12px",
               }}
             >
               Cancel
@@ -45,10 +48,11 @@ function CustomerModal({ open, onClose }) {
               color="white"
               onClick={onClose}
               style={{
-                backgroundColor: "white",
-                color: "black",
-                border: "1px solid black",
-                marginLeft: "1rem",
+                background: "linear-gradient(to right, #6a11cb, #2575fc)",
+                color: "white",
+                height: "47px", // Match the height of the Autocomplete
+                padding: "0 15px",
+                fontSize: "12px",
               }}
             >
               Add Customer
