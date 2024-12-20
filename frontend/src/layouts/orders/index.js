@@ -437,6 +437,7 @@ function Tables() {
                     padding: "0 15px",
                     fontSize: "13px",
                     position: "relative",
+                    left: "25px",
                   }}
                 >
                   + Add Product Details

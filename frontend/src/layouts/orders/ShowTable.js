@@ -23,6 +23,8 @@ import axios from "axios";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ShowInvoice from "./ShowInvoice";
+import ShowLogistics from "./ShowLogistics";
+import ShowPayment from "./ShowPayment";
 
 function OrderManagement() {
   const [orders, setOrders] = useState([]);
@@ -326,6 +328,8 @@ function OrderManagement() {
             </TableContainer>
           </Paper>
           <ShowInvoice />
+          <ShowLogistics />
+          <ShowPayment />
         </Container>
       </div>
     </DashboardLayout>

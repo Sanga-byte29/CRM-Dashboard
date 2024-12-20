@@ -113,7 +113,7 @@ function ShowInvoice() {
       <Paper elevation={2} style={{ padding: "1.5rem", borderRadius: "8px" }}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
           <Typography variant="h5" style={{ fontWeight: "bold" }}>
-            Invoice Management
+            Invoice
           </Typography>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Button
