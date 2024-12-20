@@ -4,12 +4,11 @@ const Customer = require("../Models/customers");
 
 const router = express.Router();
 
-// Create a new order
 router.post("/", async (req, res) => {
   try {
     const { customer, ...orderData } = req.body;
 
-    // Validate customer ID
+    //validdate the customer id
     const existingCustomer = await Customer.findById(customer);
     if (!existingCustomer) {
       return res.status(400).json({ error: "Invalid customer ID" });
@@ -23,7 +22,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get all orders with customer details
+//getting alll the orders
 router.get("/", async (req, res) => {
   try {
     const orders = await Order.find().populate("customer");
@@ -32,8 +31,6 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// Get a single order by ID
 router.get("/:id", async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate("customer");
@@ -43,13 +40,12 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// Update an order
 router.put("/:id", async (req, res) => {
   try {
     const { customer, ...orderData } = req.body;
 
-    // Validate customer if updated
+    //if updated validate trhe customer (trial)
+
     if (customer) {
       const existingCustomer = await Customer.findById(customer);
       if (!existingCustomer) {
@@ -71,7 +67,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Delete an order
 router.delete("/:id", async (req, res) => {
   try {
     const deletedOrder = await Order.findByIdAndDelete(req.params.id);

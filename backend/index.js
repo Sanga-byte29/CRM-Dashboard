@@ -6,11 +6,16 @@ const AuthRouter = require("./Routes/AuthRouter");
 const EnsureAuthentication = require("./Routes/ensureAuthentication");
 const OrderRouter = require("./Routes/OrderRouter");
 const CustomerRouter = require("./Routes/CustomerRouter");
+
+const InvoiceRouter = require("./Routes/InvoiceRouter");
+const PaymentRouter = require("./Routes/PaymentRouter");
+const LogisticRouter = require("./Routes/LogisticRouter");
+
 const UserModel = require("./Models/User");
 const bcrypt = require("bcrypt");
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); // Parses URL-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
 
 require("dotenv").config();
@@ -22,14 +27,13 @@ app.get("/reset-password/:token", async (req, res) => {
     const { token } = req.params;
     const user = await UserModel.findOne({
       resetToken: token,
-      resetTokenExpires: { $gt: Date.now() }, // Ensure the token hasn't expired
+      resetTokenExpires: { $gt: Date.now() }, //check that the token hasn't expired
     });
 
     if (!user) {
       return res.status(400).send("Invalid or expired reset token.");
     }
 
-    // Render a reset password form or respond with a message
     res.send(`
       <form action="/reset-password/${token}" method="POST">
         <input type="password" name="password" placeholder="New password" required />
@@ -76,8 +80,11 @@ app.post("/reset-password/:token", async (req, res) => {
 
 app.use("/auth", AuthRouter);
 app.use("/checkAuth", EnsureAuthentication);
-app.use("/orders", OrderRouter); // Order management routes
+app.use("/orders", OrderRouter);
 app.use("/customers", CustomerRouter);
+app.use("/invoices", InvoiceRouter);
+app.use("/logistics", LogisticRouter);
+app.use("/payments", PaymentRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
