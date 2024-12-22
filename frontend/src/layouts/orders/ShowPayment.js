@@ -171,7 +171,7 @@ function ShowPayment() {
             <TableHead>
               <TableRow
                 style={{
-                  backgroundColor: "#f0f0f0",
+                  background: "linear-gradient(to right, #6a11cb, #2575fc)",
                   color: "#333",
                   borderRadius: "8px",
                   display: "flex",
@@ -182,6 +182,7 @@ function ShowPayment() {
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
                   Order ID
@@ -192,45 +193,60 @@ function ShowPayment() {
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Customer Name
+                  Payment ID
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Quotation Number
+                  Payment Type
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Email
+                  Payment Date
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Phone Number
+                  Payment Methods
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Action
+                  Amount Received
+                </TableCell>
+                <TableCell
+                  style={{
+                    padding: "12px 16px",
+                    flexGrow: 1,
+                    textAlign: "center",
+                    color: "white",
+                  }}
+                >
+                  Notes
                 </TableCell>
               </TableRow>
             </TableHead>

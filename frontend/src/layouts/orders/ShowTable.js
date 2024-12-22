@@ -178,7 +178,7 @@ function OrderManagement() {
                 <TableHead>
                   <TableRow
                     style={{
-                      backgroundColor: "#f0f0f0",
+                      background: "linear-gradient(to right, #6a11cb, #2575fc)",
                       color: "#333",
                       borderRadius: "8px",
                       display: "flex",
@@ -189,6 +189,7 @@ function OrderManagement() {
                         padding: "12px 16px",
                         flexGrow: 1,
                         textAlign: "center",
+                        color: "white",
                       }}
                     >
                       Order ID
@@ -199,6 +200,7 @@ function OrderManagement() {
                         padding: "12px 16px",
                         flexGrow: 1,
                         textAlign: "center",
+                        color: "white",
                       }}
                     >
                       Customer Name
@@ -208,6 +210,7 @@ function OrderManagement() {
                         padding: "12px 16px",
                         flexGrow: 1,
                         textAlign: "center",
+                        color: "white",
                       }}
                     >
                       Quotation Number
@@ -217,6 +220,7 @@ function OrderManagement() {
                         padding: "12px 16px",
                         flexGrow: 1,
                         textAlign: "center",
+                        color: "white",
                       }}
                     >
                       Email
@@ -226,6 +230,7 @@ function OrderManagement() {
                         padding: "12px 16px",
                         flexGrow: 1,
                         textAlign: "center",
+                        color: "white",
                       }}
                     >
                       Phone Number
@@ -235,6 +240,7 @@ function OrderManagement() {
                         padding: "12px 16px",
                         flexGrow: 1,
                         textAlign: "center",
+                        color: "white",
                       }}
                     >
                       Action

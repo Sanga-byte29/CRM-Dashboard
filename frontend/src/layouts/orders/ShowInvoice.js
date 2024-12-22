@@ -173,13 +173,15 @@ function ShowInvoice() {
             <TableHead>
               <TableRow
                 style={{
-                  backgroundColor: "#f0f0f0",
+                  background: "linear-gradient(to right, #6a11cb, #2575fc)",
+                  display: "flex",
+
                   color: "#333",
                   borderRadius: "8px",
                   display: "flex",
                 }}
               >
-                <TableCell
+                {/* <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
@@ -187,40 +189,44 @@ function ShowInvoice() {
                   }}
                 >
                   Order ID
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Customer Name
+                  OrderID
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Quotation Number
+                  InvoiceID
+                </TableCell>
+                <TableCell
+                  style={{
+                    padding: "12px 16px",
+                    flexGrow: 1,
+                    color: "white",
+                    textAlign: "center",
+                  }}
+                >
+                  Invoice Number
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
-                  }}
-                >
-                  Email
-                </TableCell>
-                <TableCell
-                  style={{
-                    padding: "12px 16px",
-                    flexGrow: 1,
-                    textAlign: "center",
+                    color: "white",
                   }}
                 >
                   Phone Number
@@ -230,13 +236,14 @@ function ShowInvoice() {
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Action
+                  Invoice Date
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            {/* <TableBody>
               {filteredOrders.map((order) => {
                 // const customer = customers[order.customer] || {};
                 // console.log(customer);
@@ -318,7 +325,7 @@ function ShowInvoice() {
                   </TableRow>
                 );
               })}
-            </TableBody>
+            </TableBody> */}
           </Table>
         </TableContainer>
       </Paper>

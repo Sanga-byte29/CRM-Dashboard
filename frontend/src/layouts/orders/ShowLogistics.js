@@ -173,10 +173,11 @@ function ShowLogistics() {
             <TableHead>
               <TableRow
                 style={{
-                  backgroundColor: "#f0f0f0",
+                  background: "linear-gradient(to right, #6a11cb, #2575fc)",
                   color: "#333",
                   borderRadius: "8px",
                   display: "flex",
+                  color: "white",
                 }}
               >
                 <TableCell
@@ -184,6 +185,8 @@ function ShowLogistics() {
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
+                    color: "white",
                   }}
                 >
                   Order ID
@@ -194,45 +197,60 @@ function ShowLogistics() {
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Customer Name
+                  Items Dispatched
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Quotation Number
+                  Material Dispatched Date
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Email
+                  Courier Details
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Phone Number
+                  Docket Number
                 </TableCell>
                 <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
                     textAlign: "center",
+                    color: "white",
                   }}
                 >
-                  Action
+                  Payment Type
+                </TableCell>
+                <TableCell
+                  style={{
+                    padding: "12px 16px",
+                    flexGrow: 1,
+                    textAlign: "center",
+                    color: "white",
+                  }}
+                >
+                  Amount
                 </TableCell>
               </TableRow>
             </TableHead>
