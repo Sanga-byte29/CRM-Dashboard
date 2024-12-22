@@ -22,6 +22,10 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import CustomerModal from "modals/Modal";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import InvoiceForm from "./forms/InvoiceForm";
+import LogistcsForm from "./forms/LogisticsForm";
+import LogisticsForm from "./forms/LogisticsForm";
+import PaymentForm from "./forms/PaymentForm";
 
 function Tables() {
   // States for all input fields
@@ -43,49 +47,13 @@ function Tables() {
       comment: "",
     },
   ]);
-  const [invoiceForms, setInvoiceForms] = useState([
-    {
-      orderId: 1,
-      invoiceId: "",
-      invoiceNumber: "",
-      invoiceDate: "",
-    },
-  ]);
-  const [logisticsForms, setLogisticsForms] = useState([
-    {
-      orderId: 1,
-      itemsDispatched: "",
-      materialDispatchedDate: "",
-      courierPartnerDetails: "",
-      docketNumber: "",
-      paymentType: "",
-      amount: "",
-    },
-  ]);
-  const [paymentForms, setPaymentForms] = useState([
-    {
-      orderId: 1,
-      paymentId: "",
-      paymentType: "",
-      paymentDate: "",
-      paymentMethod: "",
-      amountReceived: "",
-      notes: "",
-    },
-  ]);
 
   const handleAddForm = () => {
     setProductForms([...productForms, { id: Date.now() }]);
   };
-  const handleAddInvoiceForm = () => {
-    setInvoiceForms([...invoiceForms, { id: Date.now() }]);
-  };
 
   const handleRemoveForm = (id) => {
     setProductForms(productForms.filter((form) => form.id !== id));
-  };
-  const handleRemoveInvoiceForm = (id) => {
-    setInvoiceForms(invoiceForms.filter((form) => form.id !== id));
   };
   const [orderId, setOrderId] = useState("");
   const [orderDate, setOrderDate] = useState(dayjs());
@@ -100,12 +68,8 @@ function Tables() {
   const [customers, setCustomers] = useState([]); // Initialize as an empty array
 
   const [formData, setFormData] = useState({
-    //newlines watchout
-    // orderId: "",
     bookedBy: "Administrator",
     projectHead: "",
-    //below is changed
-    // customer: "",
     contactPerson: "",
     mobileNumber: "",
     email: "",
@@ -629,303 +593,13 @@ function Tables() {
                   </Box>
                 ))}
             </Grid>
-            {/* invoice section */}
-            <Grid item xs={12} md={12}>
-              {/* Header Section */}
-              <Box display="flex" justifyContent="space-between" alignItems="center" mb={2} px={2}>
-                <Typography variant="h5" fontWeight="bold">
-                  Invoice Details
-                </Typography>
-                <Button
-                  onClick={handleAddForm}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    color: "black",
-                    width: "200px",
-                    height: "47px",
-                    padding: "0 15px",
-                    fontSize: "13px",
-                    position: "relative",
-                    left: "25px",
-                  }}
-                >
-                  + Add Inovice Details
-                </Button>
-              </Box>
-
-              {/* Form Section */}
-              {productForms.length > 0 &&
-                productForms.map((form, index) => (
-                  <Box
-                    key={form.id}
-                    mb={4}
-                    border="1px solid #e0e0e0"
-                    borderRadius="8px"
-                    p={3}
-                    mx={2}
-                    bgcolor="#f9f9f9"
-                  >
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          label="Order Id"
-                          fullWidth
-                          select
-                          sx={{
-                            "& .MuiOutlinedInput-root": {
-                              borderRadius: "8px",
-                              "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "gray",
-                              },
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                            "& .MuiSelect-select": {
-                              padding: "0 10px",
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                          }}
-                        >
-                          <MenuItem value="type1">id 1</MenuItem>
-                          <MenuItem value="type2">id 2</MenuItem>
-                        </TextField>
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          label="Invoice Id"
-                          fullWidth
-                          select
-                          sx={{
-                            "& .MuiOutlinedInput-root": {
-                              borderRadius: "8px",
-                              "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "gray",
-                              },
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                            "& .MuiSelect-select": {
-                              padding: "0 10px",
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                          }}
-                        >
-                          <MenuItem value="type1">id 1</MenuItem>
-                          <MenuItem value="type2">id 2</MenuItem>
-                        </TextField>
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField label="Product Name" fullWidth />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          label="Invoice Date"
-                          fullWidth
-                          type="date"
-                          InputLabelProps={{ shrink: true }}
-                        />
-                      </Grid>
-                    </Grid>
-                    <Box display="flex" justifyContent="flex-end" mt={2}>
-                      <Button
-                        variant="contained"
-                        style={{
-                          display: "flex-start",
-                          background: "linear-gradient(to right, #6a11cb, #2575fc)",
-                          color: "#fff",
-                          textTransform: "none",
-                          padding: "8px 24px",
-                        }}
-                      >
-                        Save
-                      </Button>
-                      <IconButton onClick={() => handleRemoveForm(form.id)} color="error">
-                        <RemoveCircleIcon />
-                      </IconButton>
-                      <IconButton onClick={() => handleAddForm(form.id)} color="error">
-                        <AddCircleIcon />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                ))}
-            </Grid>
+            {/* invoice */}
+            <InvoiceForm />
             {/* logistics  */}
-            <Grid item xs={12} md={12}>
-              {/* Header Section */}
-              <Box display="flex" justifyContent="space-between" alignItems="center" mb={2} px={2}>
-                <Typography variant="h5" fontWeight="bold">
-                  Logistics Details
-                </Typography>
-                <Button
-                  onClick={handleAddForm}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    color: "black",
-                    width: "200px",
-                    height: "47px",
-                    padding: "0 15px",
-                    fontSize: "13px",
-                    position: "relative",
-                    left: "25px",
-                  }}
-                >
-                  + Add Logistics Details
-                </Button>
-              </Box>
+            <LogisticsForm />
 
-              {/* Form Section */}
-              {productForms.length > 0 &&
-                productForms.map((form, index) => (
-                  <Box
-                    key={form.id}
-                    mb={4}
-                    border="1px solid #e0e0e0"
-                    borderRadius="8px"
-                    p={3}
-                    mx={2}
-                    bgcolor="#f9f9f9"
-                  >
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          label="Order Id"
-                          fullWidth
-                          select
-                          sx={{
-                            "& .MuiOutlinedInput-root": {
-                              borderRadius: "8px",
-                              "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "gray",
-                              },
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                            "& .MuiSelect-select": {
-                              padding: "0 10px",
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                          }}
-                        >
-                          <MenuItem value="type1">id 1</MenuItem>
-                          <MenuItem value="type2">id 2</MenuItem>
-                        </TextField>
-                      </Grid>
-                      {/* <Grid item xs={12} sm={6}>
-                        <TextField
-                          label="Invoice Id"
-                          fullWidth
-                          select
-                          sx={{
-                            "& .MuiOutlinedInput-root": {
-                              borderRadius: "8px",
-                              "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "gray",
-                              },
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                            "& .MuiSelect-select": {
-                              padding: "0 10px",
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                          }}
-                        >
-                          <MenuItem value="type1">id 1</MenuItem>
-                          <MenuItem value="type2">id 2</MenuItem>
-                        </TextField>
-                      </Grid> */}
-                      <Grid item xs={12} sm={6}>
-                        <TextField label="Items Dispatched" fullWidth />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          label="Material Dispatched Date"
-                          fullWidth
-                          type="date"
-                          InputLabelProps={{ shrink: true }}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField label="Courier Partner Details" fullWidth />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField label="Docket Number" fullWidth />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          label="Payment Type"
-                          fullWidth
-                          select
-                          sx={{
-                            "& .MuiOutlinedInput-root": {
-                              borderRadius: "8px",
-                              "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "gray",
-                              },
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                            "& .MuiSelect-select": {
-                              padding: "0 10px",
-                              height: "40px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                          }}
-                        >
-                          <MenuItem value="type1">To Pay</MenuItem>
-                          <MenuItem value="type2">Paid</MenuItem>
-                        </TextField>
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          type="number"
-                          label="Amount"
-                          InputProps={{ inputProps: { min: 0 } }}
-                          fullWidth
-                        />
-                      </Grid>
-                    </Grid>
-                    <Box display="flex" justifyContent="flex-end" mt={2}>
-                      <Button
-                        variant="contained"
-                        style={{
-                          display: "flex-start",
-                          background: "linear-gradient(to right, #6a11cb, #2575fc)",
-                          color: "#fff",
-                          textTransform: "none",
-                          padding: "8px 24px",
-                        }}
-                      >
-                        Save
-                      </Button>
-                      <IconButton onClick={() => handleRemoveForm(form.id)} color="error">
-                        <RemoveCircleIcon />
-                      </IconButton>
-                      <IconButton onClick={() => handleAddForm(form.id)} color="error">
-                        <AddCircleIcon />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                ))}
-            </Grid>
-
-            {/* payments sections */}
+            {/* payments */}
+            <PaymentForm />
             <Grid item xs={12} md={12}>
               {/* Header Section */}
               <Box display="flex" justifyContent="space-between" alignItems="center" mb={2} px={2}>

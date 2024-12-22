@@ -229,16 +229,6 @@ function ShowInvoice() {
                     color: "white",
                   }}
                 >
-                  Phone Number
-                </TableCell>
-                <TableCell
-                  style={{
-                    padding: "12px 16px",
-                    flexGrow: 1,
-                    textAlign: "center",
-                    color: "white",
-                  }}
-                >
                   Invoice Date
                 </TableCell>
               </TableRow>
