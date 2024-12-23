@@ -104,19 +104,15 @@ function ShowInvoice() {
   });
 
   return (
-    // <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
-    //   {/* Left side content (if any) */}
-    //   <div style={{ width: "50px", backgroundColor: "#f0f0f0" }}>
-    //     {/* Your left side content here */}
-    //   </div>
-    <Container style={{ flex: 1, padding: "2rem" }}>
-      <Paper elevation={2} style={{ padding: "1.5rem", borderRadius: "8px" }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-          <Typography variant="h5" style={{ fontWeight: "bold" }}>
-            Invoice
-          </Typography>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            {/* <Button
+    <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
+      <Container style={{ flex: 1, padding: "2rem" }}>
+        <Paper elevation={2} style={{ padding: "1.5rem", borderRadius: "8px" }}>
+          <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+            <Typography variant="h5" style={{ fontWeight: "bold" }}>
+              Invoice
+            </Typography>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {/* <Button
               component={Link}
               to="/tables/order-form"
               variant="contained"
@@ -128,60 +124,60 @@ function ShowInvoice() {
             >
               Create Order
             </Button> */}
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <Select
-                labelId="demo-multiple-name-label"
-                id="demo-multiple-name"
-                displayEmpty
-                value={selectedRequest}
-                onChange={handleRequestChange}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "8px",
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "gray",
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <Select
+                  labelId="demo-multiple-name-label"
+                  id="demo-multiple-name"
+                  displayEmpty
+                  value={selectedRequest}
+                  onChange={handleRequestChange}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "8px",
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "gray",
+                      },
+                      height: "40px !important",
+                      display: "flex",
+                      alignItems: "center",
                     },
-                    height: "40px !important",
-                    display: "flex",
-                    alignItems: "center",
-                  },
-                  "& .MuiSelect-select": {
-                    padding: "0 10px",
-                    height: "40px !important",
-                    display: "flex",
-                    alignItems: "center",
-                  },
-                }}
-              >
-                <MenuItem value="my request">My Invoice</MenuItem>
-                <MenuItem value="all requests">All Invoices</MenuItem>
-              </Select>
-            </FormControl>
+                    "& .MuiSelect-select": {
+                      padding: "0 10px",
+                      height: "40px !important",
+                      display: "flex",
+                      alignItems: "center",
+                    },
+                  }}
+                >
+                  <MenuItem value="my request">My Invoice</MenuItem>
+                  <MenuItem value="all requests">All Invoices</MenuItem>
+                </Select>
+              </FormControl>
 
-            <TextField
-              label="Search"
-              variant="outlined"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              sx={{ m: 1, minWidth: 120, height: "40px" }}
-            />
-          </div>
-        </Box>
-        {/* {showCreateOrder && <CreateOrder />} */}
-        <TableContainer component={Paper} style={{ borderRadius: "8px" }}>
-          <Table style={{ tableLayout: "fixed", width: "100%" }}>
-            <TableHead>
-              <TableRow
-                style={{
-                  background: "linear-gradient(to right, #6a11cb, #2575fc)",
-                  display: "flex",
+              <TextField
+                label="Search"
+                variant="outlined"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                sx={{ m: 1, minWidth: 120, height: "40px" }}
+              />
+            </div>
+          </Box>
+          {/* {showCreateOrder && <CreateOrder />} */}
+          <TableContainer component={Paper} style={{ borderRadius: "8px" }}>
+            <Table style={{ tableLayout: "fixed", width: "100%" }}>
+              <TableHead>
+                <TableRow
+                  style={{
+                    background: "linear-gradient(to right, #6a11cb, #2575fc)",
+                    display: "flex",
 
-                  color: "#333",
-                  borderRadius: "8px",
-                  display: "flex",
-                }}
-              >
-                {/* <TableCell
+                    color: "#333",
+                    borderRadius: "8px",
+                    display: "flex",
+                  }}
+                >
+                  {/* <TableCell
                   style={{
                     padding: "12px 16px",
                     flexGrow: 1,
@@ -191,49 +187,49 @@ function ShowInvoice() {
                   Order ID
                 </TableCell> */}
 
-                <TableCell
-                  style={{
-                    padding: "12px 16px",
-                    flexGrow: 1,
-                    textAlign: "center",
-                    color: "white",
-                  }}
-                >
-                  OrderID
-                </TableCell>
-                <TableCell
-                  style={{
-                    padding: "12px 16px",
-                    flexGrow: 1,
-                    textAlign: "center",
-                    color: "white",
-                  }}
-                >
-                  InvoiceID
-                </TableCell>
-                <TableCell
-                  style={{
-                    padding: "12px 16px",
-                    flexGrow: 1,
-                    color: "white",
-                    textAlign: "center",
-                  }}
-                >
-                  Invoice Number
-                </TableCell>
-                <TableCell
-                  style={{
-                    padding: "12px 16px",
-                    flexGrow: 1,
-                    textAlign: "center",
-                    color: "white",
-                  }}
-                >
-                  Invoice Date
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            {/* <TableBody>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                      color: "white",
+                    }}
+                  >
+                    OrderID
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                      color: "white",
+                    }}
+                  >
+                    InvoiceID
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                  >
+                    Invoice Number
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                      color: "white",
+                    }}
+                  >
+                    Invoice Date
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              {/* <TableBody>
               {filteredOrders.map((order) => {
                 // const customer = customers[order.customer] || {};
                 // console.log(customer);
@@ -316,11 +312,11 @@ function ShowInvoice() {
                 );
               })}
             </TableBody> */}
-          </Table>
-        </TableContainer>
-      </Paper>
-    </Container>
-    // </div>
+            </Table>
+          </TableContainer>
+        </Paper>
+      </Container>
+    </div>
   );
 
   function handleAction(order) {
