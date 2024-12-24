@@ -24,9 +24,9 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 function ShowInvoice() {
-  const [orders, setOrders] = useState([]);
+  const [invoices, setInvoices] = useState([]);
   const [customers, setCustomers] = useState({});
-  const [showCreateOrder, setShowCreateOrder] = useState(false);
+  const [showInoviceOrder, setShowInvoiceOrder] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState("my request");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -55,36 +55,36 @@ function ShowInvoice() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/orders");
+        const response = await axios.get("http://localhost:8080/invoices");
         setOrders(response.data);
       } catch (error) {
-        console.error("Error fetching orders:", error);
+        console.error("Error fetching invoices:", error);
       }
     };
     fetchOrders();
   }, []);
 
-  console.log(orders);
+  console.log(invoices);
 
   // Fetch customers (separate useEffect)
   useEffect(() => {
-    const fetchCustomers = async () => {
+    const fetchInvoices = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/customers");
-        const customersMap = response.data.reduce((map, customer) => {
-          map[customer._id] = customer;
+        const response = await axios.get("http://localhost:8080/invoices");
+        const inovicesMap = response.data.reduce((map, invoice) => {
+          map[invoice._id] = customer;
           return map;
         }, {});
-        setCustomers(customersMap);
+        setCustomers(invoicesMap);
       } catch (error) {
-        console.error("Error fetching customers:", error);
+        console.error("Error fetching invoices:", error);
       }
     };
-    fetchCustomers();
+    fetchInvoices();
   }, []);
 
-  const handleCreateOrder = () => {
-    setShowCreateOrder(true);
+  const handleInvoiceOrder = () => {
+    setShowCreateInvoice(true);
   };
 
   const handleRequestChange = (event) => {
@@ -95,11 +95,13 @@ function ShowInvoice() {
     setSearchQuery(event.target.value);
   };
 
-  const filteredOrders = orders.filter((order) => {
+  const invoiceOrders = invoices.filter((invoice) => {
     if (selectedRequest === "all requests") {
-      return order.orderId.toString().includes(searchQuery);
+      return invoice.invoiceId.toString().includes(searchQuery);
     } else {
-      return order.orderId.toString().includes(searchQuery) && order.userId === "your_user_id"; // Replace 'your_user_id' with the actual user ID
+      return (
+        invoice.invoiceId.toString().includes(searchQuery) && invoice.userId === "your_user_id"
+      ); // Replace 'your_user_id' with the actual user ID
     }
   });
 
@@ -227,91 +229,119 @@ function ShowInvoice() {
                   >
                     Invoice Date
                   </TableCell>
-                </TableRow>
-              </TableHead>
-              {/* <TableBody>
-              {filteredOrders.map((order) => {
-                // const customer = customers[order.customer] || {};
-                // console.log(customer);
-                //below addition
-                const customer = customers[order.customer?._id] || {};
-                return (
-                  <TableRow
-                    key={order._id}
+                  <TableCell
                     style={{
-                      borderBottom: "1px solid #e0e0e0",
-                      display: "flex",
+                      padding: "12px 16px",
+                      flexGrow: 1,
+                      textAlign: "center",
+                      color: "white",
                     }}
                   >
-                    <TableCell
+                    Action
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {invoiceOrders.map((invoice) => {
+                  // const customer = customers[order.customer] || {};
+                  // console.log(customer);
+                  //below addition
+                  const invoices = invoices[invoice.invoice?._id] || {};
+                  return (
+                    <TableRow
+                      key={invoice._id}
                       style={{
-                        padding: "12px 16px",
-                        flexGrow: 1,
-                        textAlign: "center",
+                        borderBottom: "1px solid #e0e0e0",
+                        display: "flex",
                       }}
                     >
-                      {order.orderId}
-                    </TableCell>
-
-                    <TableCell
-                      style={{
-                        padding: "12px 16px",
-                        flexGrow: 1,
-                        textAlign: "center",
-                      }}
-                    >
-                      {customer.contactName || "N/A"}
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        padding: "12px 16px",
-                        flexGrow: 1,
-                        textAlign: "center",
-                      }}
-                    >
-                      {order.quotationNumber}
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        padding: "12px 16px",
-                        flexGrow: 1,
-                        textAlign: "center",
-                      }}
-                    >
-                      {customer.email || "N/A"}
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        padding: "12px 16px",
-                        flexGrow: 1,
-                        textAlign: "center",
-                      }}
-                    >
-                      {customer.contactNumber || "N/A"}
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        padding: "12px 16px",
-                        flexGrow: 1,
-                        textAlign: "center",
-                      }}
-                    >
-                      <Button
-                        variant="outlined"
-                        size="small"
+                      <TableCell
                         style={{
-                          color: "#1976d2",
-                          borderColor: "#1976d2",
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
                         }}
-                        onClick={() => handleAction(order)}
                       >
-                        View
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody> */}
+                        {invoice.orderId}
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {invoice.invoiceId}
+                      </TableCell>
+
+                      {/* <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {customer.contactName || "N/A"}
+                      </TableCell> */}
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {invoice.invoiceNumber}
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {invoice.invoiceDate}
+                      </TableCell>
+                      {/* <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {customer.email || "N/A"}
+                      </TableCell> */}
+                      {/* <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {customer.contactNumber || "N/A"}
+                      </TableCell> */}
+                      <TableCell
+                        style={{
+                          padding: "12px 16px",
+                          flexGrow: 1,
+                          textAlign: "center",
+                        }}
+                      >
+                        {/* <Button
+                          variant="outlined"
+                          size="small"
+                          style={{
+                            color: "#1976d2",
+                            borderColor: "#1976d2",
+                          }}
+                          onClick={() => handleAction(order)}
+                        >
+                          View
+                        </Button> */}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
             </Table>
           </TableContainer>
         </Paper>

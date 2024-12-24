@@ -25,8 +25,16 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ShowInvoice from "./ShowInvoice";
 import ShowLogistics from "./ShowLogistics";
 import ShowPayment from "./ShowPayment";
+import ViewModal from "modals/ViewModal";
 
 function OrderManagement() {
+  const sampleOrder = {
+    id: "PROD-22-1",
+    name: "John Doe",
+    quotationNumber: "Q12345",
+    email: "johndoe@123gmail.com",
+    phoneNumber: "123456789",
+  };
   const [orders, setOrders] = useState([]);
   const [customers, setCustomers] = useState({});
   const [showCreateOrder, setShowCreateOrder] = useState(false);
@@ -314,7 +322,7 @@ function OrderManagement() {
                             textAlign: "center",
                           }}
                         >
-                          <Button
+                          {/* <Button
                             variant="outlined"
                             size="small"
                             style={{
@@ -324,7 +332,8 @@ function OrderManagement() {
                             onClick={() => handleAction(order)}
                           >
                             View
-                          </Button>
+                          </Button> */}
+                          <ViewModal order={sampleOrder} />
                         </TableCell>
                       </TableRow>
                     );
